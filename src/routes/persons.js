@@ -3,9 +3,9 @@ const router = express.Router();
 const mongoose = require('mongoose');
 let Person = require('../models/persons');
 
-router.get('/gente', async (req, res) => {
-    const Persons = await Person.find({});
-    res.json(Persons);
+router.get('/persons', async (req, res) => {
+    const persons = await Person.find({});
+    res.render('persons', {persons});
 });
 
 router.get('/addPerson', (req, res) =>{
@@ -13,7 +13,7 @@ router.get('/addPerson', (req, res) =>{
 });
 
 router.post('/addPerson', (req, res) =>{
-    const newPerson = Person ({
+    const newPerson = new Person({
         nombre: req.body.nombre,
         edad: req.body.edad,
         tipoSangre: req.body.tipoSangre,
@@ -22,8 +22,9 @@ router.post('/addPerson', (req, res) =>{
 
     newPerson
     .save()
-    .then((data) => {res.redirect('/gente')})
-    .catch((error) =>{res.json({message:error})});
+    .then(data => {res.redirect('/persons')})
+    .catch(error =>{res.json({message:error})});
 });
+
 
 module.exports = router;
