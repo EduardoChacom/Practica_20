@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <link rel="stylesheet" href="/assets/styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+        crossorigin="anonymous"></script>
+    <title>Modificar Personas</title>
+</head>
+<body>
+    <header>
+        <h1>
+            <svg role="img" aria-label="Go to the Organization Home" class="leafygreen-ui-l72deg lg-ui-logo-0000" height="32" fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 32"><path d="M10.2503 3.56662C8.90729 1.97316 7.75079 0.354795 7.51452 0.0186734C7.48964 -0.00622447 7.45233 -0.00622447 7.42746 0.0186734C7.19118 0.354795 6.03469 1.97316 4.69165 3.56662C-6.83603 18.2688 6.50725 28.1906 6.50725 28.1906L6.61915 28.2653C6.71864 29.7965 6.96735 32 6.96735 32H7.96219C7.96219 32 8.21091 29.809 8.31039 28.2653L8.4223 28.1782C8.43473 28.1906 21.778 18.2688 10.2503 3.56662ZM7.46477 27.9665C7.46477 27.9665 6.86787 27.4561 6.70621 27.1947V27.1698L7.42746 11.1605C7.42746 11.1107 7.50208 11.1107 7.50208 11.1605L8.22333 27.1698V27.1947C8.06167 27.4561 7.46477 27.9665 7.46477 27.9665Z" fill="white"></path></svg>
+            MongoDB: <small>Personas</small>
+        </h1>
+        <br>
+    </header>
+    <main>
+        <form action="/updatePerson/<%= person._id %>" method="post"" class="row g-3">
+            <legend>
+                <h3>
+                    <a href="/gente">
+                        <i class="bi bi-arrow-left-circle"></i>
+                    </a>
+                    <b>Modificar Persona</b>
+                </h3>
+            </legend>
+            <hr>
+            <div class="row d-flex justify-content-center" id="map_section">
+                <div class="col-5">
+                    <div class="input-group input-group-sm mb-3 col-auto">
+                        <label for="nss">ID: </label>
+                        <input type="text" class="form-control-plaintext form-control-sm" name="idF" id="idF" required maxlength="11" value="<%= person._id %>" readonly>
+                    </div>
+                    <div class="input-group input-group-sm mb-3 col-auto">
+                        <label for="nss">NSS: </label>
+                        <input type="text" class="form-control form-control-sm" name="nss" id="nss" required maxlength="11" value="<%= person.nss %>">
+                    </div>
+                    <div class="input-group input-group-sm mb-3 col-auto">
+                        <label for="nombre">Nombre: </label>
+                        <input type="text" class="form-control form-control-sm" name="nombre" id="nombre" required value="<%= person.nombre %>">
+                    </div>
+                    <div class="input-group input-group-sm mb-3 col-auto">
+                        <label for="nombre">Edad: </label>
+                        <input type="number" class="form-control form-control-sm" name="edad" id="edad" required min="0" value="<%= person.edad %>">
+                    </div>  
+                    <div class="input-group input-group-sm mb-3 col-auto">
+                        <label for="nombre">Tipo Sangre: </label>
+                        
+                        <select class="form-select form-select-sm" aria-label=".form-select-sm example" name="tipoSangre" id="tipoSangre" required>
+                            <% 
+                                let tiposSangre = ["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"];
+                                tiposSangre.forEach(tipoSangre => {
+                            %>
+                            <option value="<%= tipoSangre %>" <%= tipoSangre === person.tipoSangre ? "selected" : "" %>><%= tipoSangre %></option>
+                                <% 
+                                }); 
+                            %>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-outline-success"><i class="bi bi-send-fill"></i> Enviar Datos</button>
+                </div>
+            </div>
+        </form>
+    </main>
+    
+</body>
+</html>
